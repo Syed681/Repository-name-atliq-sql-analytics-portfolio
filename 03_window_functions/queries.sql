@@ -53,7 +53,7 @@ FROM customer_sales)
     customer_code,
     total_sold_quantity,
     customer_rank 
-  from ranked_customer
+  from ranked_customers
   where customer_rank <=5
   order by total_sold_quantity DESC ;
 
