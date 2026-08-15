@@ -1,127 +1,84 @@
+````markdown
 # AtliQ Hardware SQL Analytics Portfolio
 
 A practical SQL analytics portfolio built using the **AtliQ Hardware dataset** in **MySQL Workbench**.
 
-This repository demonstrates intermediate SQL and analytical SQL skills through business-focused problems involving sales, customers, products, forecasting, pricing, manufacturing costs, freight, and deductions.
+This repository demonstrates how SQL can be used to work with realistic business data, perform analytical calculations, and answer business questions across sales, customers, products, forecasting, pricing, costs, and supply-chain operations.
 
-The objective is not simply to collect solved SQL exercises. The project demonstrates how SQL can be used to **query, analyze, and derive insights from realistic business data**.
+The project focuses on **intermediate SQL and analytical SQL**, with emphasis on:
 
----
-
-## Project Overview
-
-The AtliQ Hardware database follows a **star-schema-style analytical structure** containing dimension tables and fact tables.
-
-The portfolio progresses from core relational analysis to more advanced analytical and business problems.
-
-### Database Structure
-
-#### Dimension Tables
-
-* `dim_customer`
-* `dim_product`
-* `dim_date`
-* `dim_fiscal_year`
-
-#### Fact Tables
-
-* `fact_sales_monthly`
-* `fact_forecast_monthly`
-* `fact_gross_price`
-* `fact_manufacturing_cost`
-* `fact_freight_cost`
-* `fact_pre_invoice_deductions`
-* `fact_post_invoice_deductions`
-
-#### Existing Analytical Views
-
-* `fact_sales_monthly_fyear`
-* `sales_preinv_discount`
-* `sales_postinv_discount`
-* `net_sales`
-* `gross_sales`
+- Joins and aggregation
+- CTEs and subqueries
+- Window functions
+- Time-series analysis
+- Advanced analytical SQL
+- Fact-table analysis
+- Business-focused analysis and insights
 
 ---
 
-## SQL Skills Demonstrated
+## Project Objective
 
-### Relational Querying
+The objective of this portfolio is to demonstrate practical SQL ability rather than simply collecting tutorial exercises.
 
-* `SELECT`
-* `WHERE`
-* `ORDER BY`
-* `LIMIT`
-* `CASE WHEN`
+The analysis progresses from relational querying to more advanced analytical problems and finally to business interpretation.
 
-### Joins & Aggregation
+The project demonstrates how SQL can be used to:
 
-* `INNER JOIN`
-* `LEFT JOIN`
-* `GROUP BY`
-* `HAVING`
-* Aggregate functions
-* Multi-table analysis
-
-### CTEs & Subqueries
-
-* Common Table Expressions
-* Nested queries
-* Multi-step analytical queries
-* Multi-level aggregation
-
-### Window Functions
-
-* `ROW_NUMBER()`
-* `RANK()`
-* `DENSE_RANK()`
-* `PARTITION BY`
-* `LAG()`
-* Running totals
-* Moving averages
-* Window frames
-
-### Time-Series Analysis
-
-* Monthly analysis
-* Month-over-month growth
-* Year-over-year growth
-* Previous-period comparison
-* Customer-level time-series analysis
-
-### Advanced Analytical SQL
-
-* Top-N analysis
-* Top-N within groups
-* Percentage of total
-* Latest-record analysis
-* Customer activity analysis
-* Ranking and comparative analysis
-
-### Fact-Table Analysis
-
-* Understanding table grain
-* Fact-to-fact joins
-* Actual vs forecast analysis
-* Business KPI calculations
-
-### Performance Awareness
-
-* Query execution concepts
-* `EXPLAIN`
-* Index fundamentals
-* Query optimization
+- Combine fact and dimension data
+- Calculate business metrics
+- Compare performance over time
+- Rank customers and products
+- Analyze contribution and growth
+- Compare actual sales with forecasts
+- Analyze costs and deductions
+- Translate business requirements into SQL
+- Communicate analytical results in a business context
 
 ---
 
-## Important Analytical Concept: Fact Table Grain
+## Database
 
-A key part of this project is understanding **grain** before joining or aggregating data.
+The project uses the **AtliQ Hardware database** in MySQL Workbench.
 
-For example, `fact_sales_monthly` is approximately at the following grain:
+The database follows a **star-schema-style analytical structure** containing dimension tables, fact tables, and analytical views.
+
+### Dimension Tables
+
+- `dim_customer`
+- `dim_product`
+- `dim_date`
+- `dim_fiscal_year`
+
+### Fact Tables
+
+- `fact_sales_monthly`
+- `fact_forecast_monthly`
+- `fact_gross_price`
+- `fact_manufacturing_cost`
+- `fact_freight_cost`
+- `fact_pre_invoice_deductions`
+- `fact_post_invoice_deductions`
+
+### Analytical Views
+
+- `fact_sales_monthly_fyear`
+- `sales_preinv_discount`
+- `sales_postinv_discount`
+- `net_sales`
+- `gross_sales`
+
+---
+
+## Database Grain
+
+Understanding **table grain** is an important part of the analysis.
+
+For example, `fact_sales_monthly` is approximately at the grain of:
 
 ```text
 date + product_code + customer_code
-```
+````
 
 with:
 
@@ -129,7 +86,7 @@ with:
 sold_quantity
 ```
 
-as the main measure.
+as the primary measure.
 
 `fact_forecast_monthly` is approximately at:
 
@@ -143,9 +100,9 @@ with:
 forecast_quantity
 ```
 
-as the measure.
+as the primary measure.
 
-Understanding grain helps prevent incorrect joins, duplicated rows, and incorrect business calculations when working with multiple fact tables.
+Understanding grain is important before joining fact tables because incorrect joins can create duplicated rows and incorrect business calculations.
 
 ---
 
@@ -185,7 +142,258 @@ atliq-sql-analytics-portfolio/
 
 ---
 
-## Portfolio Progression
+# SQL Analysis Sections
+
+## 01 — Joins & Aggregation
+
+Focuses on combining fact and dimension tables and calculating business-level measures.
+
+Topics include:
+
+* INNER JOIN
+* Multiple-table joins
+* GROUP BY
+* Aggregation
+* Customer analysis
+* Product analysis
+* Regional analysis
+* Gross sales calculations
+* Deduction analysis
+
+Example business questions:
+
+* Which regions have the highest sales volume?
+* Which customers generate the highest sales?
+* Which products have the highest sales quantity?
+* What is gross sales by market?
+
+---
+
+## 02 — CTEs & Subqueries
+
+Focuses on breaking complex analytical problems into logical steps.
+
+Topics include:
+
+* Common Table Expressions
+* Scalar subqueries
+* Multi-step CTEs
+* Aggregate-vs-aggregate analysis
+* Customer and product comparisons
+* Contribution calculations
+
+Example business questions:
+
+* Which products perform above average?
+* Which customers generate above-average sales?
+* What percentage of total sales comes from each product?
+* Which products generate the highest net sales?
+
+---
+
+## 03 — Window Functions
+
+Focuses on analytical calculations performed across related rows without collapsing the result set.
+
+Topics include:
+
+* `ROW_NUMBER()`
+* `RANK()`
+* `DENSE_RANK()`
+* `PARTITION BY`
+* `LAG()`
+* `SUM() OVER()`
+* `AVG() OVER()`
+* Window frames
+* Running totals
+* Moving averages
+* Latest-record analysis
+* Percentage contribution
+
+Example business questions:
+
+* Who are the top 3 customers in each region?
+* Which products rank highest within each division?
+* What percentage of sales comes from each customer?
+* What is the three-month moving average?
+* What is the latest sales record for each customer-product combination?
+
+---
+
+## 04 — Time-Series Analysis
+
+Focuses on understanding business performance over time.
+
+Topics include:
+
+* Monthly aggregation
+* Previous-period comparison
+* Month-over-month analysis
+* Year-over-year analysis
+* Customer-level trends
+* Running sales
+* Moving averages
+
+Example business questions:
+
+* How did sales change from the previous month?
+* How did sales compare with the same month in the previous year?
+* Which customers increased sales month over month?
+* What is the short-term sales trend?
+
+---
+
+## 05 — Advanced Analytical SQL
+
+Focuses on combining multiple SQL concepts to solve more complex business problems.
+
+Topics include:
+
+* Top-N analysis
+* Top-N within groups
+* Regional rankings
+* Contribution analysis
+* `NTILE()`
+* Analytical CTEs
+* Business-focused ranking
+
+Example business questions:
+
+* What are the top 3 products within each division?
+* What are the top markets within each region?
+* Which customers contribute the most to regional sales?
+* Which customers belong to the highest sales segment?
+
+---
+
+## 06 — Fact-Table Analysis
+
+Focuses on analyzing and safely combining business fact tables.
+
+Topics include:
+
+* Fact-table grain
+* Fact-to-fact joins
+* Actual vs forecast
+* Gross sales
+* Manufacturing cost
+* Freight cost
+* Pre-invoice deductions
+* Post-invoice deductions
+* Business KPI calculations
+
+Example business questions:
+
+* How accurate is the sales forecast?
+* What is the variance between actual and forecast?
+* Which products have higher manufacturing costs?
+* Which markets have higher freight costs?
+* What is gross sales by fiscal year or market?
+
+---
+
+## 07 — Business Analysis
+
+The final section translates technical SQL analysis into business-oriented interpretation.
+
+Business areas include:
+
+* Regional sales performance
+* Customer performance
+* Product performance
+* Forecast accuracy
+* Market performance
+* Manufacturing cost
+* Freight cost
+* Customer concentration
+
+This section demonstrates the progression from:
+
+```text
+Business Question
+        ↓
+Analytical Approach
+        ↓
+SQL Query
+        ↓
+Business Metric
+        ↓
+Business Interpretation
+```
+
+The accompanying `insights.md` file documents the business relevance of the analysis.
+
+---
+
+# Key Analytical Concepts Demonstrated
+
+### SQL
+
+* SELECT
+* WHERE
+* CASE WHEN
+* GROUP BY
+* HAVING
+* ORDER BY
+* LIMIT
+* INNER JOIN
+* LEFT JOIN
+* CTEs
+* Subqueries
+* Aggregate functions
+
+### Analytical SQL
+
+* Ranking
+* Partitioning
+* Running totals
+* Moving averages
+* Previous-period analysis
+* Percentage contribution
+* Top-N analysis
+* Time-series analysis
+* Latest-record analysis
+* Fact-table analysis
+
+### Business Analysis
+
+* Sales performance
+* Customer contribution
+* Product performance
+* Regional analysis
+* Forecast accuracy
+* Cost analysis
+* Supply-chain analysis
+
+---
+
+# Business Context
+
+The analysis is intentionally connected to business and operational use cases such as:
+
+* Demand planning
+* Supply planning
+* Inventory planning
+* Regional performance
+* Customer concentration
+* Product prioritization
+* Logistics cost monitoring
+* Forecast evaluation
+
+This helps demonstrate SQL as an **analytical business tool**, rather than only a programming language.
+
+---
+
+# Tools
+
+* **MySQL**
+* **MySQL Workbench**
+* **GitHub**
+* **SQL**
+
+---
+
+# Portfolio Progression
 
 ```text
 SQL Fundamentals
@@ -207,57 +415,23 @@ Business Analysis & Insights
 
 ---
 
-## Example Business Problems
+# About This Portfolio
 
-The portfolio includes analytical questions such as:
+This project represents my progression from SQL querying to practical analytical SQL using a realistic business dataset.
 
-* Which customers have the highest sales quantity?
-* Who are the top 3 customers within each region?
-* Which products contribute the most to total sales?
-* What is the monthly sales growth?
-* How does sales performance compare with the previous year?
-* What is the running sales total?
-* What is the three-month moving average?
-* What is the latest sales record for each customer-product combination?
-* How accurate is the sales forecast?
-* Which products or customers demonstrate significant business performance?
+The focus is on demonstrating the ability to:
 
----
-
-## Analytical Approach
-
-Each major analysis follows a simple structure:
-
-```text
-Business Question
-        ↓
-Analytical Approach
-        ↓
-SQL Query
-        ↓
-Result
-        ↓
-Business Insight
-```
-
-The focus is on writing SQL that solves realistic analytical problems rather than demonstrating syntax in isolation.
-
----
-
-## Tools
-
-* **MySQL**
-* **MySQL Workbench**
-* **GitHub**
-* SQL
-
----
-
-## Purpose
-
-This project is part of my development toward **Data Analyst, BI, and Supply Chain Analytics roles**.
-
-It demonstrates my ability to work with relational business data, perform analytical SQL, understand fact-table grain, calculate business metrics, and translate business questions into SQL-based analysis.
+* Query relational business data
+* Join fact and dimension tables
+* Aggregate business metrics
+* Build multi-step analytical queries
+* Use window functions
+* Perform time-series analysis
+* Understand fact-table grain
+* Compare actual and forecast data
+* Analyze business performance
+* Translate business questions into SQL
+* Communicate analytical findings
 
 ---
 
@@ -265,5 +439,9 @@ It demonstrates my ability to work with relational business data, perform analyt
 
 **Syed Aleem**
 
-SQL Analytics Portfolio
 Data Analytics | Business Intelligence | Supply Chain Analytics
+
+GitHub: [Syed681](https://github.com/Syed681)
+
+```
+```
